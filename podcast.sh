@@ -5,17 +5,16 @@ touch ~/podcast-archive.txt
 cd "/var/www/html/files"
 
 dl () {
-    youtube-dl --download-archive ~/podcast-archive.txt -f         \
-        bestaudio --dateafter 20200801                          \
-        --embed-thumbnail --add-metadata                        \
-        --playlist-end 5 "$1"
+    youtube-dl --download-archive ~/podcast-archive.txt -f    \
+        bestaudio --embed-thumbnail --add-metadata            \
+        --playlist-end ${2:-1} "$1"
     sleep 5
 }
 
 dl https://soundcloud.com/edwardo-ghazal/
 dl https://soundcloud.com/rolandsons-seasidetrip
 dl https://soundcloud.com/mayanwarriorofficial
-dl https://soundcloud.com/adrienlacq/likes
+dl https://soundcloud.com/adrienlacq/likes 5
 
 echo "Deleting old sets"
 # Deleting podcast episodes older than 276 days
