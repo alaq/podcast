@@ -22,11 +22,10 @@ echo Counting space used
 # Counting space used
 space=$(du -sh | awk '{print $1}')
 files=$(find . -type f | wc -l)
-files=$((files - 1))
 
 cd ..
 
 echo "Generating feed"
-python3 ~/genRSS/genRSS.py -d files/ -e mp3,m4a --recursive --sort-creation --host 168.235.89.113 --title "ACS" --description "Last feed update: $(date), serving $files files or $space of music, enjoy!" -o feed.rss -i cover.png
+python3 ~/genRSS/genRSS.py -d files/ -e mp3,m4a --recursive --sort-creation --host podcast.alaq.io --title "ACS" --description "Last feed update: $(date), serving $files files or $space of music, enjoy!" -o feed.rss -i cover.png
 sed -i 's/&/&amp;/g' feed.rss
 
