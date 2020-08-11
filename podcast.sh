@@ -8,7 +8,7 @@ dl () {
     youtube-dl --download-archive ~/podcast-archive.txt -f         \
         bestaudio --dateafter 20200801                          \
         --embed-thumbnail --add-metadata                        \
-        --playlist-end 5 "$2"
+        --playlist-end 5 "$1"
     sleep 5
 }
 
