@@ -7,7 +7,7 @@ cd "/var/www/html/files"
 dl () {
     /usr/local/bin/youtube-dl --download-archive ~/podcast-archive.txt -f    \
         bestaudio --embed-thumbnail --add-metadata            \
-	-o '%(uploader)s - %(title)s'      \
+	-o '%(uploader)s - %(title)s.%(ext)s'      \
         --playlist-end ${2:-1} "$1"
     sleep 5
 }
