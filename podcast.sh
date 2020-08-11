@@ -5,8 +5,9 @@ touch ~/podcast-archive.txt
 cd "/var/www/html/files"
 
 dl () {
-    youtube-dl --download-archive ~/podcast-archive.txt -f    \
+    /usr/local/bin/youtube-dl --download-archive ~/podcast-archive.txt -f    \
         bestaudio --embed-thumbnail --add-metadata            \
+	-o '%(uploader)s - %(title)s'      \
         --playlist-end ${2:-1} "$1"
     sleep 5
 }
