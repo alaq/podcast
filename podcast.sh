@@ -1,18 +1,21 @@
 #!/bin/bash
 
 mkdir -p "/var/www/html/files"
-mkdir -p ~/podcast-archives
+touch ~/podcast-archive.txt
 cd "/var/www/html/files"
 
 dl () {
-    youtube-dl --download-archive ~/podcast-archives/"$1".txt -f         \
+    youtube-dl --download-archive ~/podcast-archive.txt -f         \
         bestaudio --dateafter 20200801                          \
         --embed-thumbnail --add-metadata                        \
         --playlist-end 5 "$2"
     sleep 5
 }
 
-dl don-edwardo https://soundcloud.com/edwardo-ghazal/
+dl https://soundcloud.com/edwardo-ghazal/
+dl https://soundcloud.com/rolandsons-seasidetrip
+dl https://soundcloud.com/mayanwarriorofficial
+dl https://soundcloud.com/adrienlacq/likes
 
 echo "Deleting old sets"
 # Deleting podcast episodes older than 276 days
