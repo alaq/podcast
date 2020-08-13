@@ -1,8 +1,10 @@
 #!/bin/bash
 
-mkdir -p "/var/www/html/files"
+FILES="/var/www/html/files"
+
+mkdir -p $FILES
 touch ~/podcast-archive.txt
-cd "/var/www/html/files"
+cd $FILES
 
 dl () {
     /usr/local/bin/youtube-dl --download-archive ~/podcast-archive.txt -f    \
@@ -20,7 +22,18 @@ dl https://soundcloud.com/adrienlacq/likes 5
 
 echo "Deleting old sets"
 # Deleting podcast episodes older than 276 days
-#find . -type f -mtime +100 -delete
+
+usage=$(du -sb $FILES | cut -d $'\t' -f 1)
+max=8000000000
+if (( usage > max ))
+then
+  find $FILES -maxdepth 1 -type f -printf '%T@\t%s\t%p\n' | sort -n | \
+    while (( usage > max )) && IFS=$'\t' read timestamp size file
+    do
+      echo "Deleting $file"
+      rm -- "$file" && (( usage -= size ))
+    done
+fi
 
 echo Counting space used
 # Counting space used
