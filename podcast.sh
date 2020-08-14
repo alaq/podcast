@@ -15,9 +15,10 @@ dl () {
     sleep 5
 }
 
-dl https://soundcloud.com/edwardo-ghazal/
+dl https://soundcloud.com/edwardo-ghazal
 dl https://soundcloud.com/rolandsons-seasidetrip
 dl https://soundcloud.com/mayanwarriorofficial
+dl https://soundcloud.com/robot-heart
 dl https://soundcloud.com/adrienlacq/likes 5
 
 echo "Deleting old sets"
@@ -43,6 +44,6 @@ files=$(find . -type f | wc -l)
 cd ..
 
 echo "Generating feed"
-python3 ~/genRSS/genRSS.py -d files/ -e mp3,m4a --recursive --sort-creation --host podcast.alaq.io --title "ACS" --description "Last feed update: $(date), serving $files files or $space of music, enjoy!" -o feed.rss -i cover.png
+/usr/bin/python3 ~/genRSS/genRSS.py -d files/ -e mp3,m4a --recursive --sort-creation --host podcast.alaq.io --title "ACS" --description "Last feed update: $(date), serving $files files or $space of music, enjoy!" -o feed.rss -i cover.png
 sed -i 's/&/&amp;/g' feed.rss
 
