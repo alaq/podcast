@@ -1,5 +1,6 @@
 #!/bin/bash
 
+date
 FILES="/var/www/html/files"
 
 mkdir -p $FILES
@@ -7,7 +8,7 @@ touch ~/podcast-archive.txt
 cd $FILES
 
 dl () {
-    /usr/local/bin/youtube-dl --download-archive ~/podcast-archive.txt -f    \
+    /usr/local/bin/youtube-dl --download-archive $HOME/podcast-archive.txt -f    \
         bestaudio --embed-thumbnail --add-metadata            \
 	--match-filter 'duration > 2400' \
 	-o '%(uploader)s - %(title)s.%(ext)s'      \
@@ -15,7 +16,7 @@ dl () {
     sleep 5
 }
 
-dl https://soundcloud.com/edwardo-ghazal
+dl https://soundcloud.com/donedwardo
 dl https://soundcloud.com/rolandsons-seasidetrip
 dl https://soundcloud.com/mayanwarriorofficial
 dl https://soundcloud.com/robot-heart
@@ -44,6 +45,6 @@ files=$(find . -type f | wc -l)
 cd ..
 
 echo "Generating feed"
-/usr/bin/python3 ~/genRSS/genRSS.py -d files/ -e mp3,m4a --recursive --sort-creation --host podcast.alaq.io --title "ACS" --description "Last feed update: $(date), serving $files files or $space of music, enjoy!" -o feed.rss -i cover.png
+/usr/bin/python3 $HOME/genRSS/genRSS.py -d files/ -e mp3,m4a --recursive --sort-creation --host podcast.alaq.io --title "ACS" --description "Last feed update: $(date), serving $files files or $space of music, enjoy!" -o feed.rss -i cover.png
 sed -i 's/&/&amp;/g' feed.rss
 
