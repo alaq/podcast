@@ -23,13 +23,11 @@ dl https://soundcloud.com/robot-heart
 dl https://soundcloud.com/adrienlacq/likes 5
 
 echo "Deleting old sets"
-# Deleting podcast episodes older than 276 days
-
 usage=$(du -sb $FILES | cut -d $'\t' -f 1)
 max=8000000000
 if (( usage > max ))
 then
-  find $FILES -maxdepth 1 -type f -printf '%T@\t%s\t%p\n' | sort -n | \
+  find $FILES -maxdepth 1 -type f -printf '%C@\t%s\t%p\n' | sort -n | \
     while (( usage > max )) && IFS=$'\t' read timestamp size file
     do
       echo "Deleting $file"
